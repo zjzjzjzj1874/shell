@@ -1,3 +1,6 @@
+#!/bin/bash
+# 初识shell
+
 # region 定义变量
 _var="hello world" # shell定义变量
 echo ${_var} # 打印shell变量

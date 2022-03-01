@@ -1,4 +1,5 @@
 #!/bin/bash
+# 数组
 
 # region 数组定义
 arr=(

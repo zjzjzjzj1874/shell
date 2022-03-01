@@ -1,4 +1,5 @@
 #!/bin/bash
+# 字符串分割
 
 var="https://www.baidu.com/123.html"
 echo ${var}

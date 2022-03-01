@@ -1,4 +1,6 @@
 #!/bin/bash
+# 字符串
+
 # region 引号
 # 单引号：single quote
 str='this is single quote'
