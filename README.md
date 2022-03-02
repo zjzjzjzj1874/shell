@@ -11,3 +11,7 @@ shell语法学习
 ### 传参
 
 > + 函数传参使用$*和$@区别：函数使用$*传参，其实只传入了一个参数，是所有参数的一个字符串集合，所以只有一个；要准确传参的话，还得使用$@;
+
+### 其他
+
+> + expr index这个表达式在MacOS中执行会报错：expr:syntax error；但是Linux中没有问题。因为MacOS使用BSD expr，没有index指令，Linux通常使用GNU的expr，所以有这个命令。
