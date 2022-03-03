@@ -15,3 +15,4 @@ shell语法学习
 ### 其他
 
 > + expr index这个表达式在MacOS中执行会报错：expr:syntax error；但是Linux中没有问题。因为MacOS使用BSD expr，没有index指令，Linux通常使用GNU的expr，所以有这个命令。
+> + shell中，!=表示（不等于）；但是<、>、<=、>=这些需要用-lt、-gt、-le、-gt等替换
