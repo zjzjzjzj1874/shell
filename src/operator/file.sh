@@ -54,3 +54,7 @@ fi
 if [ -w ${f} ];then
     echo "可写"
 fi
+
+if [ -f ${f} ];then 
+    echo "普通文件"
+fi
