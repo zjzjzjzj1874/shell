@@ -46,3 +46,9 @@ readonly var
 3.全局变量：shell程序设置的特殊变量，shell变量中一部分是环境变量，一部分是局部变量。
 !
 # endregion shell变量
+
+# sh中使用Linux的普通命令
+path=/Users/rock/sl
+mkdir -p ${path}
+cd ${path}
+touch main.go
