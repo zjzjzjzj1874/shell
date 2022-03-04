@@ -1,0 +1,19 @@
+#!/bin/bash
+# 将/Users/rock/tools/shell中文件复制到/Users/rock/tools/shell1中
+
+src=/Users/rock/tools/shell
+tar=/Users/rock/tools/shell1
+
+if [ ! -e ${tar} ];then
+    echo "文件夹不存在"
+    mkdir ${tar}
+fi
+
+for f in `ls ${src}`;do
+    # echo "cp ${src}/""${f}" ${tar}
+
+    # cd ${src} && cp ${f} ${tar}
+    # cp "${src}/""${f}" ${tar}
+    cp -r ${src}/${f} ${tar} # 兼容文件夹
+done
+
