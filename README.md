@@ -21,3 +21,4 @@ shell语法学习
 
 > + expr index这个表达式在MacOS中执行会报错：expr:syntax error；但是Linux中没有问题。因为MacOS使用BSD expr，没有index指令，Linux通常使用GNU的expr，所以有这个命令。
 > + -e命令是开启转义：echo "hello \n";echo -e "hello \n"；两个输出不一样。
+> + [斗鱼学习shell地址](https://github.com/douyu/juno-install)
