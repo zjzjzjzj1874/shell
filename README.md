@@ -6,7 +6,7 @@ shell语法学习
 
 ### 数组
 
-> + 数组的遍历：使用for来遍历是最佳的，while用角标来访问，不一定能够访问所有的数组；用下标申明函数，arr[10]=1；这个时候获取数组长度为1，但是0-9都是空，只有第十个元素为1；arr.sh中有demo，有兴趣的朋友可以自己尝试。
+> + 数组的遍历：使用for来遍历是最佳的，while用角标来访问，不一定能够访问所有的数组；举例：用下标申明数组时，arr[10]=1；这个时候获取数组长度为1，但是0-9都是空，只有第十个元素为1；arr.sh中有demo，有兴趣的朋友可以自己尝试。
 
 ### 传参
 
@@ -19,6 +19,7 @@ shell语法学习
 
 ### 其他
 
-> + expr index这个表达式在MacOS中执行会报错：expr:syntax error；但是Linux中没有问题。因为MacOS使用BSD expr，没有index指令，Linux通常使用GNU的expr，所以有这个命令。
-> + -e命令是开启转义：echo "hello \n";echo -e "hello \n"；两个输出不一样。
+> + expr index这个表达式在MacOS中执行会报错：expr:syntax error；但是Linux中没有问题。因为MacOS使用BSD expr，没有index指令，Linux通常使用GNU的expr，所以有这个命令；
+> + -e命令是开启转义：echo "hello \n";echo -e "hello \n"；两个输出不一样；
+> + 为了检测上一个命令执行的结果，可以使用'$?'获取最后运行命令的结束代码返回值(0表示没有错误，非0表示执行有问题)；
 > + [斗鱼学习shell地址](https://github.com/douyu/juno-install)
