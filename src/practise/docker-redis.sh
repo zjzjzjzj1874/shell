@@ -39,3 +39,5 @@ closeAllDockerService(){
 # endregion 关闭docker中所有服务
 
 closeAllDockerService
+
+# TODO 测试一下，awk每次取两列，然后看看for的时候是怎么取值的
