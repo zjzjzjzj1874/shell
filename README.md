@@ -1,6 +1,6 @@
 # shell-study
 
-shell语法学习
+shell语法总结
 
 ## 常见易错总结
 
