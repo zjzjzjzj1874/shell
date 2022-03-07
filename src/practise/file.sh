@@ -7,6 +7,8 @@ tar=/Users/rock/tools/shell1
 if [ ! -e ${tar} ];then
     echo "文件夹不存在"
     mkdir ${tar}
+    res=$?
+    echo "上一个命令执行结果：${res}."
 fi
 
 for f in `ls ${src}`;do
