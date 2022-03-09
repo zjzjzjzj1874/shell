@@ -11,21 +11,23 @@
 a=10
 b=20
 
-if [ ${a} != ${b} ];then
-    echo "a != b"
-else 
-    echo "a == b"
-fi
+bool_compare(){
+    if [ ${a} != ${b} ];then
+        echo "a != b"
+    else 
+        echo "a == b"
+    fi
 
-if [ ${a} -gt 10 -o ${b} -gt 10 ];then
-    echo "a > 10 or b > 10"
-else 
-    echo "a <= 10 and b <= 10"
-fi
+    if [ ${a} -gt 10 -o ${b} -gt 10 ];then
+        echo "a > 10 or b > 10"
+    else 
+        echo "a <= 10 and b <= 10"
+    fi
 
-if [ ${a} -lt 100 -a ${b} -lt 100 ]
-then
-    echo "a < 100 && b < 100"
-else 
-    echo "not"
-fi
+    if [ ${a} -lt 100 -a ${b} -lt 100 ]
+    then
+        echo "a < 100 && b < 100"
+    else 
+        echo "not"
+    fi
+}

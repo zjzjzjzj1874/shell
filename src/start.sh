@@ -1,43 +1,44 @@
 #!/bin/bash
 # 初识shell
 
-# region 定义变量
-_var="hello world" # shell定义变量
-echo ${_var} # 打印shell变量
-_var="rewrite variable" # 会覆盖_var变量的值
-echo ${_var} # 打印shell变量
+# 定义变量
+define_var(){
+    _var="hello world" # shell定义变量
+    echo ${_var} # 打印shell变量
+    _var="rewrite variable" # 会覆盖_var变量的值
+    echo ${_var} # 打印shell变量
 
-echo "======= 循环定义变量 =======" # 打印shell变量
-for f in `ls /usr`;do 
-    echo "this name is ${f}"
-done
+    echo "======= 循环定义变量 =======" # 打印shell变量
+    for f in `ls /usr`;do 
+        echo "this name is ${f}"
+    done
 
-for f in $(ls /usr);do
-    echo "repeat ${f}"
-done
-# endregion 定义变量
+    for f in $(ls /usr);do
+        echo "repeat ${f}"
+    done
+}
 
-# region 只读变量
-url="www.baidu.com"
-readonly url
-# url="google.com" # 会报错 line 20: url: readonly variable
-# 注    1.只读变量不能重复赋值
-#       2.只读变量不能被删除
+# 只读变量
+readonly_var(){
+    url="www.baidu.com"
+    readonly url
+    # url="google.com" # 会报错 line 20: url: readonly variable
+    # 注    1.只读变量不能重复赋值
+    #       2.只读变量不能被删除
+}
 
-# endregion 只读变量
+# 删除变量
+del_var(){
+   var="baidu.com"
+    echo "del before:${var}"
+    unset var 
+    echo "del after:${var}" 
+    readonly var
+    # unset var # 会报错：line 32: unset: var: cannot unset: readonly variable
+    # 注:1.删除变量后，打印的值将为空
+    #    2.只读变量不能被删除
+}
 
-# region 删除变量
-var="baidu.com"
-echo "del before:${var}"
-unset var 
-echo "del after:${var}"
-
-readonly var
-# unset var # 会报错：line 32: unset: var: cannot unset: readonly variable
-# 注:1.删除变量后，打印的值将为空
-#    2.只读变量不能被删除
-
-# endregion 删除变量
 
 # region shell变量
 :<<!
@@ -48,7 +49,9 @@ readonly var
 # endregion shell变量
 
 # sh中使用Linux的普通命令
-path=/Users/rock/sl
-mkdir -p ${path}
-cd ${path}
-touch main.go
+linux_cmd(){
+    path=/Users/rock/sl
+    mkdir -p ${path}
+    cd ${path}
+    touch main.go   
+}

@@ -12,39 +12,41 @@
 
 a=10;b=20
 
-if [ ${a} -eq ${b} ]
-then    
-    echo "a = b : ${a}"
-else   
-    echo "a(${a}) != b(${b})"
-fi
+relational_compare(){
+    if [ ${a} -eq ${b} ]
+    then    
+        echo "a = b : ${a}"
+    else   
+        echo "a(${a}) != b(${b})"
+    fi
 
-if [ ${a} -ne ${b} ];then
-    echo "a != b"
-else
-    echo "a = b"
-fi
+    if [ ${a} -ne ${b} ];then
+        echo "a != b"
+    else
+        echo "a = b"
+    fi
 
-if [ ${a} -gt ${b} ];then
-    echo "a > b"
-else 
-    echo "a <= b"
-fi
+    if [ ${a} -gt ${b} ];then
+        echo "a > b"
+    else 
+        echo "a <= b"
+    fi
 
-if [ ${a} -ge ${b} ];then
-    echo "a >= b"
-else 
-    echo "a < b"
-fi
+    if [ ${a} -ge ${b} ];then
+        echo "a >= b"
+    else 
+        echo "a < b"
+    fi
 
-if [ ${a} -lt ${b} ];then
-    echo "a<b"
-else    
-    echo "a>=b"
-fi
+    if [ ${a} -lt ${b} ];then
+        echo "a<b"
+    else    
+        echo "a>=b"
+    fi
 
-if [ ${a} -le ${b} ];then
-    echo "a<=b"
-else 
-    echo "a > b"
-fi
+    if [ ${a} -le ${b} ];then
+        echo "a<=b"
+    else 
+        echo "a > b"
+    fi
+}

@@ -16,29 +16,35 @@
 # EOF
 
 a=10;b=20
-# echo ${a},${b}
-val=`expr $a + $b`
-echo "a+b=${val}"
-val=`expr $a - $b`
-echo "a-b = ${val}"
-val=`expr $a \* $b`
-echo "a * b : $val"
-val=`expr $b / $a`
-echo "b / a : $val"
-val=`expr $b % $a`
-echo "b % a : $val"
 
-if [ $a == $b ];then
-    echo "a == b"
-else 
-    echo "a != b"
-fi
+# 运算
+operation(){
+    val=`expr $a + $b`
+    echo "a+b=${val}"
+    val=`expr $a - $b`
+    echo "a-b = ${val}"
+    val=`expr $a \* $b`
+    echo "a * b : $val"
+    val=`expr $b / $a`
+    echo "b / a : $val"
+    val=`expr $b % $a`
+    echo "b % a : $val"
+}
 
-if [ $a != $b ];then
-    echo "a != b"
-else 
-    echo "a == b"
-fi
+# 比较
+compare(){
+    if [ $a == $b ];then
+        echo "a == b"
+    else 
+        echo "a != b"
+    fi
+
+    if [ $a != $b ];then
+        echo "a != b"
+    else 
+        echo "a == b"
+    fi
+}
 
 # 乘号(*)前边必须加反斜杠(\)才能实现乘法运算；
 # 在 MAC 中 shell 的 expr 语法是：$((表达式))，此处表达式中的 "*" 不需要转义符号 "\" 。

@@ -11,15 +11,17 @@
 a=10
 b=20
 
-if [[ ${a} -lt 50 && ${b} -lt 50 ]];then
-    echo "a和b都小于50"
-else 
-    echo "a 和b 不全小于50"
-fi
+logic_compare(){
+    if [[ ${a} -lt 50 && ${b} -lt 50 ]];then
+        echo "a和b都小于50"
+    else 
+        echo "a 和b 不全小于50"
+    fi
 
-if [[ ${a} -lt 50 || ${b} -lt 50 ]]
-then
-    echo "a或b小于50"
-else 
-    echo "a和b都不小于50"
-fi
+    if [[ ${a} -lt 50 || ${b} -lt 50 ]]
+    then
+        echo "a或b小于50"
+    else 
+        echo "a和b都不小于50"
+    fi
+}

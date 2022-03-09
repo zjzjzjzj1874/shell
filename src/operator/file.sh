@@ -25,43 +25,45 @@
 
 f="/Users/rock/ShellProjects/shell-study/src/operator/file.sh"
 
-if [ -b $f ];then
-    echo "块文件"
-else
-    echo "不是块文件"
-fi
+file_operation(){
+    if [ -b $f ];then
+        echo "块文件"
+    else
+        echo "不是块文件"
+    fi
 
-if [ -d ${f} ];then
-    echo "目录"
-fi
+    if [ -d ${f} ];then
+        echo "目录"
+    fi
 
-if [ -e ${f} ];then
-    echo "存在"
-fi
+    if [ -e ${f} ];then
+        echo "存在"
+    fi
 
-if [ -s ${f} ];then # 文件是否大于0
-    echo "不为空"
-fi
+    if [ -s ${f} ];then # 文件是否大于0
+        echo "不为空"
+    fi
 
-if [ -x ${f} ];then   
-    echo "可执行"
-fi
+    if [ -x ${f} ];then   
+        echo "可执行"
+    fi
 
-if [ -r ${f} ];then
-    echo "可读"
-fi
+    if [ -r ${f} ];then
+        echo "可读"
+    fi
 
-if [ -w ${f} ];then
-    echo "可写"
-fi
+    if [ -w ${f} ];then
+        echo "可写"
+    fi
 
-if [ -f ${f} ];then 
-    echo "普通文件"
-fi
+    if [ -f ${f} ];then 
+        echo "普通文件"
+    fi
 
-if test -e ./bash
-then 
-    echo "文件存在"
-else 
-    echo "文件不存在"
-fi
+    if test -e ./bash
+    then 
+        echo "文件存在"
+    else 
+        echo "文件不存在"
+    fi
+}
