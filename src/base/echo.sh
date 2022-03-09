@@ -49,6 +49,10 @@ echo -e '${name}\"' # 加不加-e都不会对输出有影响
 echo `date` # 这里是反引号``，不是单引号''
 echo `ps`
 
+# -n参数
+echo -n hello world
+echo -n a;echo b # -n即让两个echo的输出连在一起，出现在同一行；
+
 
 
 # echo输出的字符串总结
