@@ -55,3 +55,27 @@ linux_cmd(){
     cd ${path}
     touch main.go   
 }
+
+# 一些有趣的命令
+interest_cmd() {
+    echo $(cal)
+
+    echo "$(cal)"
+
+    declare -f
+
+    # declare命令的主要参数（OPTION）如下。
+    # -a：声明数组变量。
+    # -f：输出所有函数定义。
+    # -F：输出所有函数名。
+    # -i：声明整数变量。
+    # -l：声明变量为小写字母。
+    # -p：查看变量信息。
+    # -r：声明只读变量。
+    # -u：声明变量为大写字母。
+    # -x：该变量输出为环境变量
+
+    alias # 在自己系统中输出这个，可以查看所有的别名
+}
+
+interest_cmd
