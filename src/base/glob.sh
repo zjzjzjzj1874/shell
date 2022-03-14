@@ -60,6 +60,10 @@ square_bracket(){
 
    res=`cd /Users/rock/ShellProjects/shell-study/src && ls [sh]*.sh` # 匹配所有以s或者h开头的文件名
    echo ${res}
+
+    # 方括号的start-end扩展
+    res=`cd /Users/rock/tools && ls [0-9].txt`
+    echo ${res}
 }
 
 # 大括号{start_end}扩展
@@ -94,6 +98,8 @@ start_end(){
 }
 
 
+
+
 # question_star_mark
-# square_bracket
-start_end
+square_bracket
+# start_end
