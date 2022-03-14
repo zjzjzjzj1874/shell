@@ -57,11 +57,43 @@ square_bracket(){
     # [abcde] 匹配5个中的一个
    res=`cd /Users/rock/ShellProjects/shell-study/src && ls [sh].sh` # 匹配其中的s.sh或者h.sh
    echo ${res}
-    
+
    res=`cd /Users/rock/ShellProjects/shell-study/src && ls [sh]*.sh` # 匹配所有以s或者h开头的文件名
    echo ${res}
 }
 
+# 大括号{start_end}扩展
+start_end(){
+    echo {a..z}
+
+    # 逆序输出
+    echo {z..a}
+
+    echo mp{3..4}
+
+    # 若无法理解，则原样输出，不扩展
+    echo {a1..c3}
+
+    # 大括号嵌套
+    echo .{mp{3..4},m4{a,b,p,v}}
+
+    # 大括号常用与创建目录
+    # mkdir {2007..2009}-{01..12} # 会创建36个子目录
+    # echo {2007..2009}-{01..12} # 会创建36个子目录,多个简写连用，会有循环处理效果
+    # # 等同于：
+    # for year in {2007..2009}
+    # do  
+    #     for month in {01..12}
+    #     do 
+    #         echo ${year}-${month}
+    #         # mkdir year-month
+    #     done
+    # done
+
+    echo {0..8..2} # 设置步长：输出0 2 4 6 8
+}
+
 
 # question_star_mark
-square_bracket
+# square_bracket
+start_end
