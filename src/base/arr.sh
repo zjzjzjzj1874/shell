@@ -69,4 +69,42 @@ iterator_arr() {
     # 说明：基于以上试验：可以得出结论：在遍历数组的时候，最好使用for来，while用下标可能不能遍历出所有的数组元素
 }
 
-access_arr
+# 数组的追加
+append_arr() {
+    foo=(a b c)
+    echo ${foo[@]}
+
+    foo+=(x y z) # 如果不使用这种方法，那么在追加的时候需要知道数组最大序号，不太友好
+    echo ${foo[@]}
+}
+
+# 删除数组元素
+del_arr() {
+    foo=(a b c d f g)
+    echo ${foo[@]}
+    echo ${#foo[@]}
+
+    unset foo[2] # 这种unset的删除是科学的
+    echo ${foo[@]}
+    echo ${#foo[@]}
+
+    foo[1]='' # 这种做法并没有删除掉数组的第二个元素，只是将其值隐藏了，但是第二个位置仍然存在
+    echo ${foo[@]}
+    echo ${#foo[@]}
+}
+
+# 关联数组 注：在macOS上又跑不通，Linux上没有问题
+associative_arr() {
+    declare -A colors
+    colors["red"]="#ff0000"
+    colors["green"]="#00ff00"
+    colors["blue"]="#0000ff"
+
+    echo ${colors[@]}
+    echo ${colors["red"]}
+}
+
+# access_arr
+# append_arr
+# del_arr
+associative_arr
