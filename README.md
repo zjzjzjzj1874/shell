@@ -29,3 +29,4 @@ shell语法总结
 > + -e命令是开启转义：echo "hello \n";echo -e "hello \n"；两个输出不一样；
 > + 为了检测上一个命令执行的结果，可以使用'$?'获取最后运行命令的结束代码返回值(0表示没有错误，非0表示执行有问题)；
 > + [斗鱼学习shell地址](https://github.com/douyu/juno-install)
+> + [daoCloud Docker安装（学习shell地址）](https://get.daocloud.io/docker/)
