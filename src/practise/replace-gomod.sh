@@ -6,6 +6,7 @@ TARGETVERSION="git.querycap.com/aisys/common v1.2.132-0.20220318090643-440ecae64
 TARGETFILE=go.mod
 TARGETBRANCH=feature/AISA-1064
 TARGETLINE=git.querycap.com/aisys/common
+KEYWORD="srv-"
 
 failureLog="failure.log"
 successLog="success.log"
@@ -50,7 +51,7 @@ core_replace() {
 
 # 替换所有go.mod
 replace_all() {
-    srvs=`cd $GITPATH && ls | grep "srv-"`
+    srvs=`cd $GITPATH && ls | grep $KEYWORD
 
     for srv in $srvs; do
         echo  "============================================ $srv 分界线 ============================================"
@@ -92,4 +93,8 @@ replace_all() {
 
 replace_all
 
-echo "执行完毕，请检查${successLog}和${failureLog}"
+echo "执行完毕!"
+echo "--------------------- success services ---------------------"
+cat ${successLog}
+echo "--------------------- failure services ---------------------"
+cat ${failureLog}
