@@ -51,7 +51,7 @@ core_replace() {
 
 # 替换所有go.mod
 replace_all() {
-    srvs=`cd $GITPATH && ls | grep $KEYWORD
+    srvs=`cd $GITPATH && ls | grep $KEYWORD`
 
     for srv in $srvs; do
         echo  "============================================ $srv 分界线 ============================================"
@@ -60,27 +60,31 @@ replace_all() {
         cd $GITPATH$srv
         pwd
 
-        code=stash_check_pull_latest       
+        stash_check_pull_latest 
+        code=$?      
         if [ $code -ne 0 ];then
             echo "  -------- ${srv} git操作拉取最新代码或没有对应分支，请检查 -------  "
             echo " ${srv} git操作拉取最新代码或没有对应分支，请检查" >> ${GITPATH}${failureLog}
             continue
         fi
         
-        num=check_line  # 检查万一num不存在，是个空串
+        check_line  # 检查万一num不存在，是个空串
+        num=$?
         if [ $num -eq 0 ];then
             echo "  -------- ${srv} 不存在common -------  "
             continue
         fi
 
-        code=core_replace
+        core_replace
+        code=$?
         if [ $code -ne 0 ];then
             echo "  -------- ${srv} 替换目标行失败，请重试 -------  "
             echo " ${srv} 替换目标行失败，请重试 " >> ${GITPATH}${failureLog}
             continue
         fi
 
-        code=tidy_mod
+        tidy_mod
+        code=$?
         if [ $code -ne 0 ];then
             echo "  -------- ${srv} 推送到gitlab失败，请重试 -------  "
             echo "${srv} 推送到gitlab失败，请重试" >> ${GITPATH}${failureLog}
@@ -95,6 +99,6 @@ replace_all
 
 echo "执行完毕!"
 echo "--------------------- success services ---------------------"
-cat ${successLog}
+cat ${GITPATH}${successLog}
 echo "--------------------- failure services ---------------------"
-cat ${failureLog}
+cat ${GITPATH}${failureLog}
