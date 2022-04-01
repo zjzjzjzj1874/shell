@@ -9,12 +9,16 @@ timeout=`expr $TIMEOUTSec \* 1000000`
 
 failureLog="${HOME}failure.log"
 successLog="${HOME}success.log"
-
+successCount=0 # 失败数量
+failureCount=0 # 成功数量
+totalCount=0 # 总数量
 
 # 使用ffmpeg测试，超时：10s；成功截取一段视频；失败：写日志
 ffmpeg_check() {
     con=`cat ${DEVICEFILE}| awk '{print $0}'`
     let i=0
+    let success=0
+    let failure=0
     deviceID=0
     for item in ${con}; do 
         val=`expr $i % 2`
@@ -27,19 +31,25 @@ ffmpeg_check() {
             code=$?
             if [ $code -ne 0 ];then 
                 echo "rtsp采集失败，设备ID：${deviceID},流地址：${item}" >> $failureLog
+                let failure++
                 continue
             fi
             echo "成功，设备ID：${deviceID},流地址：${item}" >> $successLog
+            let success++
         else
             deviceID=$item
         fi
     done
+    successCount=$success
+    failureCount=$failure
 }
 
 # 使用ffprobe验证
 ffprobe_check() {
     con=`cat ${DEVICEFILE}| awk '{print $0}'`
     let i=0
+    let success=0
+    let failure=0
     deviceID=0
     for item in ${con}; do 
         val=`expr $i % 2`
@@ -52,13 +62,23 @@ ffprobe_check() {
             code=$?
             if [ $code -ne 0 ];then 
                 echo "rtsp采集失败，设备ID：${deviceID},流地址：${item}" >> $failureLog
+                let failure++
                 continue
             fi
             echo "成功，设备ID：${deviceID},流地址：${item}" >> $successLog
+            let success++
         else
             deviceID=$item
         fi
     done
+    successCount=$success
+    failureCount=$failure
 }
 
 ffprobe_check
+
+
+echo "====================================finish===================================="
+
+totalCount=`expr $successCount + $failureCount`
+echo "总路数：${totalCount},失败数量：${failureCount}，成功数量：$successCount"
