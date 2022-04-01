@@ -10,24 +10,55 @@ timeout=`expr $TIMEOUTSec \* 1000000`
 failureLog="${HOME}failure.log"
 successLog="${HOME}success.log"
 
-con=`cat ${DEVICEFILE}| awk '{print $0}'`
-let i=0
-deviceID=0
-for item in ${con}; do 
-    val=`expr $i % 2`
-    let i++
-    if [ $val == 1 ];then
-        echo "============================== 设备ID：${deviceID},流地址：${item} =============================="
 
-        ffmpeg -stimeout $timeout -rtsp_transport tcp -i $item -vframes $FRAMECOUNT -y $HOME${deviceID}.mp4 # 设置超时时间:10s
+# 使用ffmpeg测试，超时：10s；成功截取一段视频；失败：写日志
+ffmpeg_check() {
+    con=`cat ${DEVICEFILE}| awk '{print $0}'`
+    let i=0
+    deviceID=0
+    for item in ${con}; do 
+        val=`expr $i % 2`
+        let i++
+        if [ $val == 1 ];then
+            echo "============================== 设备ID：${deviceID},流地址：${item} =============================="
 
-        code=$?
-        if [ $code -ne 0 ];then 
-            echo "rtsp采集失败，设备ID：${deviceID},流地址：${item}" >> $failureLog
-            continue
+            ffmpeg -stimeout $timeout -rtsp_transport tcp -i $item -vframes $FRAMECOUNT -y $HOME${deviceID}.mp4 # 设置超时时间:10s
+
+            code=$?
+            if [ $code -ne 0 ];then 
+                echo "rtsp采集失败，设备ID：${deviceID},流地址：${item}" >> $failureLog
+                continue
+            fi
+            echo "成功，设备ID：${deviceID},流地址：${item}" >> $successLog
+        else
+            deviceID=$item
         fi
-        echo "成功，设备ID：${deviceID},流地址：${item}" >> $successLog
-    else
-        deviceID=$item
-    fi
-done
+    done
+}
+
+# 使用ffprobe验证
+ffprobe_check() {
+    con=`cat ${DEVICEFILE}| awk '{print $0}'`
+    let i=0
+    deviceID=0
+    for item in ${con}; do 
+        val=`expr $i % 2`
+        let i++
+        if [ $val == 1 ];then
+            echo "============================== 设备ID：${deviceID},流地址：${item} =============================="
+
+            ffprobe -stimeout $timeout -rtsp_transport tcp -i $item # 设置超时时间和连接协议
+
+            code=$?
+            if [ $code -ne 0 ];then 
+                echo "rtsp采集失败，设备ID：${deviceID},流地址：${item}" >> $failureLog
+                continue
+            fi
+            echo "成功，设备ID：${deviceID},流地址：${item}" >> $successLog
+        else
+            deviceID=$item
+        fi
+    done
+}
+
+ffprobe_check
