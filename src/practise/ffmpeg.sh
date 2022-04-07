@@ -5,7 +5,7 @@ HOME=/Users/rock/log/ffmpeg/ # 保存的路径
 DEVICEFILE=/Users/rock/device.txt # 设备流地址目标文件  格式：deviceID   rtsp_url
 FRAMECOUNT=250 # 视频帧
 TIMEOUTSec=10 # 超时秒
-timeout=`expr $TIMEOUTSec \* 1000000`
+timeoutUs=`expr $TIMEOUTSec \* 1000000`
 
 failureLog="${HOME}failure.log"
 successLog="${HOME}success.log"
@@ -29,7 +29,7 @@ ffmpeg_check() {
         if [ $val == 1 ];then
             echo "============================== 设备ID：${deviceID},流地址：${item} =============================="
 
-            timeout 20s ffmpeg -stimeout $timeout -rtsp_transport tcp -i $item -vframes $FRAMECOUNT -y $HOME${deviceID}.mp4 # 设置超时时间:10s
+            timeout 20s ffmpeg -stimeout $timeoutUs -rtsp_transport tcp -i $item -vframes $FRAMECOUNT -y $HOME${deviceID}.mp4 # 设置超时时间:10s
 
             code=$?
             if [ $code -ne 0 ];then 
@@ -69,7 +69,7 @@ ffprobe_check() {
         if [ $val == 1 ];then
             echo "============================== 设备ID：${deviceID},流地址：${item} =============================="
 
-            timeout 20s ffprobe -stimeout $timeout -rtsp_transport tcp -i $item # 设置超时时间和连接协议 timeout：macos请先安装：brew install coreutils
+            timeout 20s ffprobe -stimeout $timeoutUs -rtsp_transport tcp -i $item # 设置超时时间和连接协议 timeout：macos请先安装：brew install coreutils
 
             code=$?
             if [ $code -ne 0 ];then 
