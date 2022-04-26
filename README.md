@@ -1,4 +1,4 @@
-# shell-study
+# shell
 
 shell语法总结
 
