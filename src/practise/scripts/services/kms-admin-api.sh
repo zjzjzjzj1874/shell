@@ -11,25 +11,24 @@ adminName=kms-admin-api
 # 端口号:也可以以入参传入,也可以从yaml的配置文件中获取.建议从配置文件中获取
 port=8888
 
+kms_admin_api() {
+  # 拷贝kms admin api Dockerfile
+  sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
 
-kms_admin_api(){
-        # 拷贝kms admin api Dockerfile
-        sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
+  # 将配置文件中localhost和127域名替换为本机ip
+  echo "============================ 配置文件替换 ============================="
+  sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/kms_admin/etc/kms-admin-api.yaml
+  sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/kms_admin/etc/kms-admin-api.yaml
 
-        # 将配置文件中localhost和127域名替换为本机ip
-        echo "============================ 配置文件替换 ============================="
-        sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/kms_admin/etc/kms-admin-api.yaml
-        sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/kms_admin/etc/kms-admin-api.yaml
+  # docker build
+  echo "=========================== 构建${adminName}镜像 ======================="
+  cd /data/golang_project/kms_api_v2 && sudo docker build -t ${adminName} .
 
-        # docker build
-        echo "=========================== 构建${adminName}镜像 ======================="
-        cd /data/golang_project/kms_api_v2 && sudo docker build -t ${adminName} .
-
-        # 启动容器
-        echo "============================ 停止并删除原来${adminName} ================================"
-        sudo docker stop ${adminName} && sudo docker rm ${adminName}
-        echo " ==================================== 重新启动${adminName} ======================================"
-        sudo docker run -itd --name ${adminName} --network kms -p ${port}:${port} ${adminName}
+  # 启动容器
+  echo "============================ 停止并删除原来${adminName} ================================"
+  sudo docker stop ${adminName} && sudo docker rm ${adminName}
+  echo " ==================================== 重新启动${adminName} ======================================"
+  sudo docker run -itd --name ${adminName} --network kms -p ${port}:${port} ${adminName}
 }
 
 kms_admin_api

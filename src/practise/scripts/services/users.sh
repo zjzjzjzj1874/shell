@@ -11,25 +11,24 @@ rpcName=users-rpc
 # 端口号:也可以以入参传入,也可以从yaml的配置文件中获取.建议从配置文件中获取
 port=9001
 
-user_rpc(){
-        # 拷贝user Dockerfile
-        sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
+user_rpc() {
+  # 拷贝user Dockerfile
+  sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
 
-        # 将配置文件中localhost和127域名替换为本机ip
-        echo "============================ 配置文件替换 ============================="
-        sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/users/endpoint/rpc/etc/users.yaml
-        sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/users/endpoint/rpc/etc/users.yaml
+  # 将配置文件中localhost和127域名替换为本机ip
+  echo "============================ 配置文件替换 ============================="
+  sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/users/endpoint/rpc/etc/users.yaml
+  sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/users/endpoint/rpc/etc/users.yaml
 
+  # docker build
+  echo "=========================== 构建${rpcName}镜像 ======================="
+  cd /data/golang_project/kms_api_v2 && sudo docker build -t ${rpcName} .
 
-        # docker build
-        echo "=========================== 构建${rpcName}镜像 ======================="
-        cd /data/golang_project/kms_api_v2 && sudo docker build -t ${rpcName} .
-
-        # 启动容器
-        echo "============================ 停止并删除原来${rpcName} ================================"
-        sudo docker stop ${rpcName} && sudo docker rm ${rpcName}
-        echo " ==================================== 重新启动${rpcName} ======================================"
-        sudo docker run -itd --name ${rpcName} --network kms -p ${port}:${port} ${rpcName}
+  # 启动容器
+  echo "============================ 停止并删除原来${rpcName} ================================"
+  sudo docker stop ${rpcName} && sudo docker rm ${rpcName}
+  echo " ==================================== 重新启动${rpcName} ======================================"
+  sudo docker run -itd --name ${rpcName} --network kms -p ${port}:${port} ${rpcName}
 }
 
 user_rpc

@@ -13,25 +13,23 @@ port=3200
 
 # access-rpc启动方法
 access_rpc() {
-        # 拷贝access-rpc Dockerfile
-        sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
+  # 拷贝access-rpc Dockerfile
+  sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
 
+  # 将配置文件中localhost和127域名替换为本机ip
+  echo "============================ 配置文件替换 ============================="
+  sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/rpc/etc/access.yaml
+  sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/rpc/etc/access.yaml
 
-        # 将配置文件中localhost和127域名替换为本机ip
-        echo "============================ 配置文件替换 ============================="
-        sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/rpc/etc/access.yaml
-        sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/rpc/etc/access.yaml
+  # docker build
+  echo "=========================== 构建${rpcName}镜像 ======================="
+  cd /data/golang_project/kms_api_v2 && sudo docker build -t ${rpcName} .
 
-
-        # docker build
-        echo "=========================== 构建${rpcName}镜像 ======================="
-        cd /data/golang_project/kms_api_v2 && sudo docker build -t ${rpcName} .
-
-        # 启动容器
-        echo "============================ 停止并删除原来${rpcName} ================================"
-        sudo docker stop ${rpcName} && sudo docker rm ${rpcName}
-        echo " ==================================== 重新启动${rpcName} ======================================"
-        sudo docker run -itd --name ${rpcName} --network kms -p ${port}:${port} ${rpcName}
+  # 启动容器
+  echo "============================ 停止并删除原来${rpcName} ================================"
+  sudo docker stop ${rpcName} && sudo docker rm ${rpcName}
+  echo " ==================================== 重新启动${rpcName} ======================================"
+  sudo docker run -itd --name ${rpcName} --network kms -p ${port}:${port} ${rpcName}
 
 }
 

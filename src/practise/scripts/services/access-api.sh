@@ -12,26 +12,24 @@ apiName=access-api
 port=8009
 
 # access-api方法
-access_api(){
-    # 拷贝access-api Dockerfile
-    sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
+access_api() {
+  # 拷贝access-api Dockerfile
+  sudo cp /data/golang_project/dockerfile/${dockerfile} /data/golang_project/kms_api_v2/Dockerfile
 
+  # 将配置文件中localhost和127域名替换为本机ip
+  echo "============================ 配置文件替换 ============================="
+  sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/api/etc/access-api.yaml
+  sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/api/etc/access-api.yaml
 
-    # 将配置文件中localhost和127域名替换为本机ip
-    echo "============================ 配置文件替换 ============================="
-    sudo sed -i "s/localhost/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/api/etc/access-api.yaml
-    sudo sed -i "s/127.0.0.1/${inner_ip}/g" /data/golang_project/kms_api_v2/access/endpoint/api/etc/access-api.yaml
+  # docker build
+  echo "=========================== 构建${apiName}镜像 ======================="
+  cd /data/golang_project/kms_api_v2 && sudo docker build -t ${apiName} .
 
-
-    # docker build
-    echo "=========================== 构建${apiName}镜像 ======================="
-    cd /data/golang_project/kms_api_v2 && sudo docker build -t ${apiName} .
-
-    # 启动容器
-    echo "============================ 停止并删除原来${apiName} ================================"
-    sudo docker stop ${apiName} && sudo docker rm ${apiName}
-    echo " ==================================== 重新启动${apiName} ======================================"
-    sudo docker run -itd --name ${apiName} --network kms -p ${port}:${port} ${apiName}
+  # 启动容器
+  echo "============================ 停止并删除原来${apiName} ================================"
+  sudo docker stop ${apiName} && sudo docker rm ${apiName}
+  echo " ==================================== 重新启动${apiName} ======================================"
+  sudo docker run -itd --name ${apiName} --network kms -p ${port}:${port} ${apiName}
 }
 
 access_api
