@@ -6,9 +6,9 @@ dockerfile=Dockerfile.user.rpc
 # 内网IP
 inner_ip=$1
 echo "内网IP :${inner_ip}"
-if [ -z ${inner_ip} ];then
-    echo "====================== warning:请传入内网ip ======================"
-    return
+if [ -z ${inner_ip} ]; then
+  echo "====================== warning:请传入内网ip ======================"
+  return
 fi
 
 # 名称
