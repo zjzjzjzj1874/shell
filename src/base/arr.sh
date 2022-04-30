@@ -31,11 +31,13 @@ define_arr () {
 # 数组访问与读取
 access_arr() {
     echo ${arr[0]} # 打印数组第一个元素：注意和其他语言一样，下标从0开始
+    # shellcheck disable=SC2068
     echo ${arr[@]} # 打印数组元素使用@或则*
     echo ${arr[*]} # 打印数组元素
 
     arr=([5]=a [9]=b [23]=c)
     # 返回成员的数组序号：即返回哪些位置的元素是有值的
+    # shellcheck disable=SC2068
     echo ${!arr[@]}
     echo ${!arr[*]}
 }
@@ -49,6 +51,7 @@ len_arr() {
 
 # 数组的遍历
 iterator_arr() {
+    # shellcheck disable=SC2068
     for a in ${arr[@]};do
         echo "a == ${a}"
     done
@@ -64,6 +67,7 @@ iterator_arr() {
     j=0
     while [ $j -lt ${#arr[@]} ];do
         echo  "j = ${j}:arr = ${arr[j]}"
+        # shellcheck disable=SC2219
         let j++
     done
     # 说明：基于以上试验：可以得出结论：在遍历数组的时候，最好使用for来，while用下标可能不能遍历出所有的数组元素
@@ -72,23 +76,29 @@ iterator_arr() {
 # 数组的追加
 append_arr() {
     foo=(a b c)
+    # shellcheck disable=SC2068
     echo ${foo[@]}
 
     foo+=(x y z) # 如果不使用这种方法，那么在追加的时候需要知道数组最大序号，不太友好
+    # shellcheck disable=SC2068
     echo ${foo[@]}
 }
 
 # 删除数组元素
 del_arr() {
     foo=(a b c d f g)
+    # shellcheck disable=SC2068
     echo ${foo[@]}
     echo ${#foo[@]}
 
+    # shellcheck disable=SC2184
     unset foo[2] # 这种unset的删除是科学的
+    # shellcheck disable=SC2068
     echo ${foo[@]}
     echo ${#foo[@]}
 
     foo[1]='' # 这种做法并没有删除掉数组的第二个元素，只是将其值隐藏了，但是第二个位置仍然存在
+    # shellcheck disable=SC2068
     echo ${foo[@]}
     echo ${#foo[@]}
 }
@@ -100,6 +110,7 @@ associative_arr() {
     colors["green"]="#00ff00"
     colors["blue"]="#0000ff"
 
+    # shellcheck disable=SC2068
     echo ${colors[@]}
     echo ${colors["red"]}
 }
