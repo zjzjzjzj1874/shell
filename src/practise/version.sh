@@ -19,4 +19,7 @@ if [ ${minor} -gt ${MAX_VERSION} ]; then
   major=$(expr $major + $STEP)
 fi
 
-echo "$major.$minor.$patch" >.version
+new_version="$major.$minor.$patch"
+echo "$new_version" >.version
+
+echo "new version: $new_version"
