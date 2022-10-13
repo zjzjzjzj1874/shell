@@ -28,7 +28,8 @@ else
     echo "len(a) != 0"
 fi
 
-if [ -n ${a} ];then
+# shellcheck disable=SC2058
+if [ -ne ${a} ];then
     echo "a长度不为0"
 fi
 # 上面等价于下面
@@ -46,4 +47,11 @@ if [ ${a} ];then
     echo "a不为空"
 else    
     echo "a为空"
+fi
+
+
+name="pro"
+svc="prod"
+if [[ ${name} =~ ${svc} ]]; then
+  echo "匹配"
 fi
