@@ -55,3 +55,7 @@ svc="prod"
 if [[ ${name} =~ ${svc} ]]; then
   echo "匹配"
 fi
+
+# 字符串切割 使用下标切割shell中的字符串
+url="c.biancheng.net"
+echo ${url: 0: 9}
