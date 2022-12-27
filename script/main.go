@@ -50,7 +50,6 @@ func Dir(path string) {
 	for _, re := range res {
 		fmt.Println(re)
 	}
-	//fmt.Println(res)
 }
 
 // CountLines 文件行数统计

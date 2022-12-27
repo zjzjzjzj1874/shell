@@ -39,7 +39,7 @@ closeAllDockerService() {
     echo "docker stop ${s}"
     docker stop ${s}
     code=$?
-    if [ code -ne 0 ]; then
+    if [ $code -ne 0 ]; then
       echo "close ${s} failure"
     fi
   done
@@ -47,7 +47,7 @@ closeAllDockerService() {
 
   s=$(docker ps | awk '{if (NR>1){print $NF}}')
   echo "all docker services:${s}"
-  if [ -z ${s} ]; then
+  if [ -z "${s}" ]; then
     echo "success to close all services in docker"
   fi
 }
