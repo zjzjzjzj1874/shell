@@ -1,18 +1,12 @@
 #!/bin/bash
 
-# 删除被驱逐的pod 使用规则 ./del_evicted.sh dev => 删除dev空间下被驱逐的pod
 
-ns=$1
+# 删除被驱逐的pod 使用规则 ./del_evicted.sh => 删除所有命名空间下被驱逐的pod
 
-if [ -z "${ns}" ]; then
-  echo "请传入命名空间"
-  exit 1
-fi
+kubectl get pods -A | grep "Evi" | awk '{print $1,$2}' | while IFS= read -r each; do
+    namespace=$(echo "$each" | awk '{print $1}')
+    pod_name=$(echo "$each" | awk '{print $2}')
 
-for each in $(kubectl get pods -n "${ns}" | grep Evicted | awk '{print $1}');
-
-do
-	kubectl delete pod "${each}" -n "${ns}";
+    echo "delete pod "$pod_name" -n "$namespace""
+    kubectl delete pod "$pod_name" -n "$namespace"
 done
-
-echo "完成删除"
