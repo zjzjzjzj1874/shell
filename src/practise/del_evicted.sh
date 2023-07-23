@@ -10,3 +10,5 @@ kubectl get pods -A | grep "Evi" | awk '{print $1,$2}' | while IFS= read -r each
     echo "delete pod "$pod_name" -n "$namespace""
     kubectl delete pod "$pod_name" -n "$namespace"
 done
+
+echo "删除完成"

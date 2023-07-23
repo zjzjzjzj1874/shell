@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+# version文件中的格式为: 1.0.2
+
 MAX_VERSION=999
 STEP=1
 
