@@ -337,8 +337,15 @@ Average:     63.80    78.60    70.00
 
 ### 其他花活
 * 打印九九乘法表
-  `seq 9 | sed 'H;g' | awk -v RS='' '{for(i=1;i<=NF;i++)printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'`
-
+ ```shell
+seq 9 | sed 'H;g' | awk -v RS='' '{for(i=1;i<=NF;i++)printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'
+```
+* 批量修改文件名称
+```shell
+ls *.png | awk '{print "mv \"" $0 "\" \"" substr($0, 1, length($0)-4) ".jpg\""}' | bash
+# 批量把png格式的图片都改成jpg格式
+ls *.jpg | awk '{print "mv " $0 " " substr($0, 1, length($0)-4) ".png"} ' | bash
+```
 
 
 
