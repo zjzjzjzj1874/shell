@@ -3,7 +3,7 @@
  # @Author: zjzjzjzj1874 zjzjzjzj1874@gmail.com
  # @Date: 2025-02-05 15:40:32
  # @LastEditors: zjzjzjzj1874 zjzjzjzj1874@gmail.com
- # @LastEditTime: 2025-02-05 16:07:13
+ # @LastEditTime: 2025-02-26 16:09:59
  # @FilePath: /shell/examples/chapter1/var.sh
  # @Description: 变量的定义及使用
 ### 
@@ -60,11 +60,12 @@ done
 DATE=`date`
 echo "date is $DATE"
 
-# 把结果保存下来，然后再遍历，可以实现很多比较复杂的功能的shell
-pods=`kubectl get pods --no-headers | awk '{print $1}'`
+# 把结果保存下来，然后再遍历，可以实现很多比较复杂的功能的shell # 注意，这里还有一些问题，MacOS上无法正常显示，但是Ubuntu上可以显示 'pod ==== '
+pods=`kubectl get pods --no-headers | awk '{print $1}'` # Ubuntu，ok; macos !ok
+pods=($(kubectl get pods --no-headers | awk '{print $1}')) # macos ok; ubuntu !ok
 for pod in $pods
 do
-    echo "$pod"
+    echo "pod ==== $pod"
 done
 
 # 
@@ -76,3 +77,9 @@ done
 # ${var:=word}	    如果变量 var 为空或已被删除(unset)，那么返回 word，并将 var 的值设置为 word。
 # ${var:?message}	如果变量 var 为空或已被删除(unset)，那么将消息 message 送到标准错误输出，可以用来检测变量 var 是否可以被正常赋值。若此替换出现在Shell脚本中，那么脚本将停止运行。
 # ${var:+word}	    如果变量 var 被定义，那么返回 word，但不改变 var 的值。
+
+# 遍历当前目录下的所有文件
+for file in *
+do
+    echo $file
+done
